@@ -5,38 +5,32 @@
         <img alt="logo" src="../assets/img/TowerLogo.png" height="45" />
       </div>
     </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
+          <button class="btn btn-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" title="Create Event"><i
+              class="mdi mdi-plus-circle"></i> Event</button>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>
   </nav>
+  <Offcanvas />
 </template>
 
 <script>
 import Login from './Login.vue'
+import Offcanvas from './Offcanvas.vue';
 export default {
   setup() {
     return {}
   },
-  components: { Login }
+  components: { Login, Offcanvas }
 }
 </script>
 
@@ -60,5 +54,4 @@ a:hover {
     height: 64px;
   }
 }
-
 </style>
