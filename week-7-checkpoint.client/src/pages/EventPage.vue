@@ -1,6 +1,12 @@
 <template>
-    <div class="EventPage">
-        <h1>Welcome to the EventPage</h1>
+    <div class="EventPage" v-if="event">
+        <div class="container-fluid">
+            <div class="row mt-3">
+                <div class="col-10 m-auto">
+                    <EventCard :event="event"/>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

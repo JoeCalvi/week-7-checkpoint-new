@@ -6,10 +6,10 @@
                     <div class="col-12 text-center">
                         <h4 class="p-2">{{ event.name }}</h4>
                         <div class="row align-items-center">
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <img :src="event.coverImg" :alt="event.coverImg" class="img-fluid rounded">
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <div class="card-body border border-dark rounded">
                                     <ul>
                                         <li>{{ event.startDate }}</li>
@@ -18,6 +18,10 @@
                                         <li>Event Type: {{ event.type }}</li>
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="col-12 text-end my-2">
+                                <button v-if="event.creatorId == account.id" class="btn btn-danger" title="Cancel Event"
+                                    @click="cancelEvent()"><i class="mdi mdi-trash-can"></i></button>
                             </div>
                         </div>
                     </div>
@@ -30,7 +34,12 @@
 
 <script>
 
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { AppState } from "../AppState.js";
 import { Event } from "../models/Event.js";
+import { eventsService } from "../services/EventsService.js";
+import Pop from "../utils/Pop.js";
 export default {
     props: {
         event: {
@@ -39,7 +48,19 @@ export default {
         }
     },
     setup() {
-        return {}
+        const route = useRoute()
+        return {
+            account: computed(() => AppState.account),
+
+            async cancelEvent() {
+                try {
+                    const eventId = route.params.eventId
+                    await eventsService.cancelEvent(eventId)
+                } catch (error) {
+                    Pop.error('[CANCELLING EVENT]', error)
+                }
+            }
+        }
     }
 }
 </script>
