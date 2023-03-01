@@ -1,0 +1,16 @@
+
+  {
+    "name": "week-7-checkpoint",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:server",
+      "setup:app": "npm run setup:server && npm run setup:client",
+      "setup:client": "cd week-7-checkpoint.client && npm i",
+      "setup:server": "cd week-7-checkpoint && npm i",
+      "start": "node week-7-checkpoint/index.js"
+    },
+    "engines": {
+      "node": "^18.12.1"
+    }
+  }
+  
