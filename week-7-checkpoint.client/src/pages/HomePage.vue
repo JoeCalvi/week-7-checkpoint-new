@@ -48,18 +48,9 @@ export default {
 
     async function getAllEvents() {
       try {
-        await eventsService.getAllEvents()
+        await eventsService.getAllEvents();
       } catch (error) {
         Pop.error('[GETTING ALL EVENTS]', error);
-      }
-    }
-
-    async function getEventById() {
-      try {
-        const eventId = route.params.eventId
-        await eventsService.getEventById(eventId)
-      } catch (error) {
-        Pop.error('[GETTING EVENT BY ID]', error)
       }
     }
 
@@ -67,7 +58,7 @@ export default {
       getAllEvents()
     })
     return {
-      events: computed(() => AppState.events)
+      events: computed(() => AppState.events),
     }
   }
 }
