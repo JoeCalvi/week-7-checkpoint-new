@@ -21,7 +21,7 @@ export class AccountController extends BaseController {
     }
   }
 
-  async getMyTickets (req, res, next) {
+  async getMyTickets(req, res, next) {
     try {
       const accountId = req.userInfo.id
       const myTickets = await ticketsService.getMyTickets(accountId)
