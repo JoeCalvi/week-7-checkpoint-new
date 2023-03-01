@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
-import { Forbidden } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { towerEventsService } from "./TowerEventsService.js"
 
 
@@ -28,6 +28,18 @@ class TicketsService {
         event.save()
 
         return ticket
+    }
+
+    async deleteTicket(ticketData, ticketId) {
+        const ticket = await dbContext.Tickets.findById(ticketId)
+        if (ticket == null) {
+            throw new BadRequest('Ticket not found.')
+        }
+        const event = await towerEventsService.getEventById(ticket.eventId)
+        event.capacity++
+        event.save()
+        await dbContext.Tickets.findByIdAndDelete(ticketId)
+        return 'deleted ticket'
     }
 }
 
