@@ -66,6 +66,6 @@ export default {
 
 <style scoped lang="scss">
 .event-card {
-  height: 60vh;
+  height: 45vh;
 }
 </style>
