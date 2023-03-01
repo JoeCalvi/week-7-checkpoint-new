@@ -30,7 +30,7 @@ class TowerEventsService {
             throw new Forbidden('Must be creator of event to edit.')
         }
 
-        if(event.isCanceled == true) {
+        if (event.isCanceled == true) {
             throw new BadRequest('Event has been cancelled and cannot be edited.')
         }
         event.name = eventData.name
