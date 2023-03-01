@@ -9,7 +9,7 @@ export default {
       try {
 
       } catch (error) {
-        Pop
+        Pop.error('[GETTING ALL EVENTS]', error)
       }
     }
     return {}
