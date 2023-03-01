@@ -41,7 +41,6 @@ export class TowerEventsController extends BaseController {
             next(error)
         }
     }
-
     async editEvent(req, res, next) {
         try {
             const eventId = req.params.eventId
