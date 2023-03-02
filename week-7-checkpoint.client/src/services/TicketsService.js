@@ -1,4 +1,4 @@
-import { Ticket } from "../models/Ticket.js"
+import { Ticket, MyTicket } from "../models/Ticket.js"
 import { AppState } from "../AppState.js";
 import { logger } from "../utils/Logger.js";
 import { api } from "../services/AxiosService.js";
@@ -7,7 +7,13 @@ class TicketsService {
 
     async getTicket(eventId) {
         const res = await api.post('api/tickets', { eventId })
-        logger.log(res.data)
+        AppState.tickets.push(new Ticket(res.data))
+    }
+
+    async getMyTickets() {
+        const res = await api.get('account/tickets')
+        AppState.myTickets = res.data.map(t => new MyTicket(t))
+        logger.log(AppState.myTickets)
     }
 }
 

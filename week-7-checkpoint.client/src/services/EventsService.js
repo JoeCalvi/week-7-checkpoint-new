@@ -8,7 +8,6 @@ class EventsService {
     async getAllEvents() {
         const res = await api.get('api/events')
         AppState.events = res.data.map(e => new Event(e))
-        logger.log('[ALL EVENTS]', AppState.events)
     }
 
     async getEventById(eventId) {
