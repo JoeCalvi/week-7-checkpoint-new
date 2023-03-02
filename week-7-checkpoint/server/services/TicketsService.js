@@ -30,7 +30,7 @@ class TicketsService {
         return ticket
     }
 
-    async deleteTicket(ticketData, ticketId) {
+    async deleteTicket(ticketId) {
         const ticket = await dbContext.Tickets.findById(ticketId)
         if (ticket == null) {
             throw new BadRequest('Ticket not found.')
