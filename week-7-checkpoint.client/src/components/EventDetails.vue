@@ -28,10 +28,14 @@
                             <p>{{ event.description }}</p>
                         </div>
                         <div class="col-md-12 d-flex justify-content-end my-2">
-                            <button v-if="event.creatorId != account.id" class="btn btn-primary" @click="getTicket()">Get
-                                Ticket</button>
-                            <button v-if="event.creatorId == account.id" class="btn btn-danger" title="Cancel Event"
-                                @click="cancelEvent()">Cancel Event</button>
+                            <div class="d-flex gap-3">
+                                <button v-if="event.creatorId != account.id" class="btn btn-primary"
+                                    @click="getTicket()">Get
+                                    Ticket</button>
+                                <button class="btn btn-danger" title="Remove a Ticket" @click="">Remove a Ticket</button>
+                                <button v-if="event.creatorId == account.id" class="btn btn-danger" title="Cancel Event"
+                                    @click="cancelEvent()">Cancel Event</button>
+                            </div>
                         </div>
                     </div>
                 </div>
