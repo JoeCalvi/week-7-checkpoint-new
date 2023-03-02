@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
-import { BadRequest } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 
 class CommentsService {
@@ -16,10 +16,13 @@ class CommentsService {
         return comment
     }
 
-    async deleteComment(commentId) {
+    async deleteComment(commentId, requestorId) {
         const comment = await dbContext.Comments.findByIdAndDelete(commentId)
         if (!comment) {
             throw new BadRequest('Comment does not exist.')
+        }
+        if (comment.creatorId.toString() != requestorId) {
+            throw new Forbidden('Must be creator of comment to delete it.')
         }
         return 'deleted comment'
     }
