@@ -47,7 +47,8 @@
                         <div class="mb-3">
                             <h4>Comments:</h4>
                             <div class="text-end">
-                                <button class="btn btn-warning">Add Comment</button>
+                                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#comment-modal">Add
+                                    Comment</button>
                             </div>
                         </div>
                         <div v-for="c in comments" class="col-12">
@@ -68,11 +69,12 @@
             </div>
         </div>
     </div>
+    <NewCommentModal />
 </template>
 
 
 <script>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState.js";
 import { Event } from "../models/Event.js";
@@ -169,6 +171,14 @@ export default {
                     await ticketsService.deleteTicket(ticketId)
                 } catch (error) {
                     Pop.error('[DELETING TICKET]', error)
+                }
+            },
+
+            async createComment() {
+                try {
+                    await commentsService.createComment()
+                } catch (error) {
+                    Pop.error('[CREATING COMMENT]', error)
                 }
             }
         };

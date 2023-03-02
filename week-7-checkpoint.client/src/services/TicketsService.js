@@ -46,6 +46,7 @@ class TicketsService {
         }
         AppState.myTickets.splice(myTicketIndex, 1)
         logger.log('[DELETED FROM MY TICKETS]', myTicketIndex, '[MY TICKETS]', AppState.myTickets)
+        Pop.toast('Ticket deleted.', 'success', 'center', 3000, true)
 
         return
     }
