@@ -21,9 +21,10 @@
                             <p>{{ event.description }}</p>
                         </div>
                         <div class="col-md-12 d-flex justify-content-end my-2">
-                            <button v-if="event.creatorId != account.id" class="btn btn-primary">Get Ticket</button>
+                            <button v-if="event.creatorId != account.id" class="btn btn-primary" @click="getTicket()">Get
+                                Ticket</button>
                             <button v-if="event.creatorId == account.id" class="btn btn-danger" title="Cancel Event"
-                                @click="cancelEvent()"><i class="mdi mdi-trash-can"></i></button>
+                                @click="cancelEvent()">Cancel Event</button>
                         </div>
                     </div>
                 </div>
@@ -39,6 +40,7 @@ import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState.js";
 import { Event } from "../models/Event.js";
 import { eventsService } from "../services/EventsService.js";
+import { ticketsService } from "../services/TicketsService.js";
 import Pop from "../utils/Pop.js";
 export default {
     props: {
@@ -52,6 +54,15 @@ export default {
         const route = useRoute()
         return {
             account: computed(() => AppState.account),
+
+            async getTicket() {
+                try {
+                    const eventId = route.params.eventId
+                    await ticketsService.getTicket(eventId)
+                } catch (error) {
+                    Pop.error('[GETTING TICKET]', error)
+                }
+            },
 
             async cancelEvent() {
                 try {

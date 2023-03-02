@@ -10,11 +10,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto d-flex align-items-center gap-4">
         <li>
           <button class="btn btn-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" title="Create Event"><i
               class="mdi mdi-plus-circle"></i> Event</button>
         </li>
+        <router-link class="text-white" :to="{ name: 'Account' }">
+          <li class="selectable">Account</li>
+        </router-link>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
