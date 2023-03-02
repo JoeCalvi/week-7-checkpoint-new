@@ -139,7 +139,6 @@ export default {
                 try {
                     const eventId = route.params.eventId;
                     await ticketsService.getTicket(eventId);
-                    Pop.toast("Ticket Received", "success", "center", 3000, true);
                 }
                 catch (error) {
                     Pop.error("[GETTING TICKET]", error);
@@ -162,6 +161,10 @@ export default {
                 try {
                     await getMyTickets()
                     const myTicket = this.myTickets.find(t => t.accountId == this.account.id)
+                    if (!myTicket) {
+                        Pop.toast('You do not have a ticket to delete.', 'error', 'center', 3000, true)
+                        return
+                    }
                     const ticketId = myTicket.id
                     await ticketsService.deleteTicket(ticketId)
                 } catch (error) {
