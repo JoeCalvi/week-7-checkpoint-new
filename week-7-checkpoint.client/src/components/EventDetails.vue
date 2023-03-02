@@ -41,6 +41,18 @@
                     </div>
                 </div>
             </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div>
+                        <button class="btn btn-warning">Add Comment</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -53,6 +65,7 @@ import { AppState } from "../AppState.js";
 import { Event } from "../models/Event.js";
 import { eventsService } from "../services/EventsService.js";
 import { ticketsService } from "../services/TicketsService.js";
+import { commentsService } from "../services/CommentsService.js";
 import Pop from "../utils/Pop.js";
 import EventTicket from "./EventTicket.vue";
 export default {
@@ -85,8 +98,18 @@ export default {
             }
         }
 
+        async function getEventComments() {
+            try {
+                const eventId = route.params.eventId;
+                await commentsService.getEventComments(eventId);
+            } catch (error) {
+                Pop.error('[GETTING EVENT COMMENTS]', error);
+            }
+        }
+
         onMounted(() => {
             getAllTicketsToThisEvent();
+            getEventComments();
         });
         return {
             account: computed(() => AppState.account),
