@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mt-3">
                 <div class="col-10 m-auto">
-                    <EventCard :event="event"/>
+                    <EventDetails :event="event" />
                 </div>
             </div>
         </div>

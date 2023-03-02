@@ -25,7 +25,9 @@ class EventsService {
 
     async cancelEvent(eventId) {
         const res = await api.delete('api/events/' + eventId)
-        logger.log('[CANCELLED EVENT]', res.data)
+        let cancelledEvent = new Event(res.data)
+        let eventIndex = AppState.events.findIndex(e => e.id == eventId)
+        AppState.events.splice(eventIndex, 1, cancelledEvent)
     }
 }
 
