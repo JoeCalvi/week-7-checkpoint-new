@@ -2,7 +2,10 @@
     <div class="EventPage" v-if="event">
         <div class="container-fluid">
             <div class="row mt-3">
-                <div class="col-10 m-auto">
+                <div v-if="!event.isCanceled" class="col-10 m-auto">
+                    <EventDetails :event="event" />
+                </div>
+                <div v-else class="col-10 m-auto cancelled">
                     <EventDetails :event="event" />
                 </div>
             </div>
@@ -44,4 +47,8 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.cancelled {
+    text-decoration: line-through;
+}
+</style>
