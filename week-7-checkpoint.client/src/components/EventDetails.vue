@@ -1,7 +1,7 @@
 <template>
     <div class="EventDetails">
         <div class="container-fluid">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-12">
                     <img :src="event.coverImg" :alt="event.coverImg" class="img-fluid rounded">
                     <h1 class="p-2 text-center">{{ event.name }}</h1>

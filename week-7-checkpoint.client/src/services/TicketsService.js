@@ -6,7 +6,7 @@ import { api } from "../services/AxiosService.js";
 class TicketsService {
 
     async getTicket(eventId) {
-        const res = await api.post('api/tickets', eventId)
+        const res = await api.post('api/tickets', { eventId })
         logger.log(res.data)
     }
 }
