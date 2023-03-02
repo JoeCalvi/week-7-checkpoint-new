@@ -32,7 +32,8 @@
                                 <button v-if="event.creatorId != account.id" class="btn btn-primary"
                                     @click="getTicket()">Get
                                     Ticket</button>
-                                <button class="btn btn-danger" title="Remove a Ticket" @click="">Remove a Ticket</button>
+                                <button class="btn btn-danger" title="Remove a Ticket" @click="deleteTicket()">Remove a
+                                    Ticket</button>
                                 <button v-if="event.creatorId == account.id" class="btn btn-danger" title="Cancel Event"
                                     @click="cancelEvent()">Cancel Event</button>
                             </div>
@@ -73,12 +74,24 @@ export default {
                 Pop.error("[GETTING TICKETS TO THIS EVENT]", error);
             }
         }
+
+        async function getMyTickets() {
+            try {
+                if (AppState.account.id) {
+                    await ticketsService.getMyTickets();
+                }
+            } catch (error) {
+                Pop.error('[GETTING MY TICKETS]', error);
+            }
+        }
+
         onMounted(() => {
             getAllTicketsToThisEvent();
         });
         return {
             account: computed(() => AppState.account),
             tickets: computed(() => AppState.tickets),
+            myTickets: computed(() => AppState.myTickets),
             async getTicket() {
                 try {
                     const eventId = route.params.eventId;
@@ -99,6 +112,17 @@ export default {
                 }
                 catch (error) {
                     Pop.error("[CANCELLING EVENT]", error);
+                }
+            },
+
+            async deleteTicket() {
+                try {
+                    await getMyTickets()
+                    const myTicket = this.myTickets.find(t => t.accountId == this.account.id)
+                    const ticketId = myTicket.id
+                    await ticketsService.deleteTicket(ticketId)
+                } catch (error) {
+                    Pop.error('[DELETING TICKET]', error)
                 }
             }
         };
