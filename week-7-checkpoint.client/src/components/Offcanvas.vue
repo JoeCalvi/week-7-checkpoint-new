@@ -56,22 +56,24 @@
 
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { AppState } from '../AppState';
+import { router } from '../router.js';
 import { eventsService } from '../services/EventsService.js';
 import Pop from '../utils/Pop.js';
 
 export default {
     setup() {
         const editable = ref({})
-
         return {
             editable,
-
+            event: computed(() => AppState.event),
             async createEvent() {
                 try {
                     const eventData = editable.value
                     await eventsService.createEvent(eventData)
                     editable.value = {}
+                    router.push({ name: 'Event', params: { eventId: this.event.id } })
                 } catch (error) {
                     Pop.error('[CREATING EVENT]', error)
                 }
