@@ -10,6 +10,16 @@ export class MyTicket {
         this.event = new Event(data.event)
     }
 }
+
+export class EventTicket {
+    constructor(data) {
+        this.id = data.accountId
+        this.accountId = data.accountId
+        this.eventId = data.eventId
+        this.profile = new Profile(data.profile)
+    }
+}
+
 export class Ticket extends MyTicket {
     constructor(data) {
         super(data)

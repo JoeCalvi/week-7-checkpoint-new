@@ -1,6 +1,6 @@
 <template>
     <div class="MyEventCard">
-        <div class="card my-events">
+        <div class="card my-events mb-2">
             <div class="card-body">
                 <p><b>{{ myEvent.event.name }}</b></p>
                 <img :src="myEvent.event.coverImg" class="img-fluid" alt="">

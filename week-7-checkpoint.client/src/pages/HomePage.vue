@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
-    <div class="row my-3">
+    <div class="row my-3 justify-content-evenly">
       <div class="mb-2">
         <h1 class="text-center">My Upcoming Events:</h1>
       </div>
-      <div v-for="tickets in myTickets" class="col-md-3">
+      <div v-for="tickets in myTickets" class="col-md-2">
         <MyEventCard :myEvent="tickets" />
       </div>
     </div>
