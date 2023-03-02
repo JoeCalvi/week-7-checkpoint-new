@@ -1,12 +1,13 @@
 <template>
     <div class="MyEventCard">
-        <div class="card my-events mb-2">
-            <div class="card-body">
-                <p><b>{{ myEvent.event.name }}</b></p>
-                <img :src="myEvent.event.coverImg" class="img-fluid" alt="">
+        <router-link :to="{ name: 'Event', params: { eventId: myEvent.event.id } }" class="text-dark">
+            <div class="card my-events mb-2">
+                <div class="card-body">
+                    <p><b>{{ myEvent.event.name }}</b></p>
+                    <img :src="myEvent.event.coverImg" class="img-fluid" alt="">
+                </div>
             </div>
-        </div>
-
+        </router-link>
     </div>
 </template>
 
