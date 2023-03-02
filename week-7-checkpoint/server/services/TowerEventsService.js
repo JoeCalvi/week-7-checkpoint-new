@@ -41,6 +41,9 @@ class TowerEventsService {
 
     async cancelEvent(eventId, requestorId) {
         const event = await this.getEventById(eventId)
+        if (event.creatorId.toString() != requestorId) {
+            throw new Forbidden('Must be creator of event to cancel.')
+        }
         event.isCanceled = true
         await event.save()
         return event

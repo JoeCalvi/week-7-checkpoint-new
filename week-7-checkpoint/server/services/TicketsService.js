@@ -21,13 +21,12 @@ class TicketsService {
         if (event.isCanceled) {
             throw new Forbidden('This event has been cancelled.')
         }
-        const ticket = await dbContext.Tickets.create(ticketData)
-        await ticket.populate('profile', 'name picture')
-        await ticket.populate('event')
-        event.capacity--
-        event.save()
-
-        return ticket
+            const ticket = await dbContext.Tickets.create(ticketData)
+            await ticket.populate('profile', 'name picture')
+            await ticket.populate('event')
+            event.capacity--
+            await event.save()
+            return ticket
     }
 
     async deleteTicket(ticketId) {
@@ -37,7 +36,7 @@ class TicketsService {
         }
         const event = await towerEventsService.getEventById(ticket.eventId)
         event.capacity++
-        event.save()
+        await event.save()
         await dbContext.Tickets.findByIdAndDelete(ticketId)
         return 'deleted ticket'
     }

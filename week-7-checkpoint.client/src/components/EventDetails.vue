@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-md-12 d-flex justify-content-end my-2">
                             <div class="d-flex gap-3">
-                                <button v-if="event.creatorId != account.id" class="btn btn-primary"
+                                <button v-if="event.creatorId != account.id && event.capacity > 0" class="btn btn-primary"
                                     @click="getTicket()">Get
                                     Ticket</button>
                                 <button class="btn btn-danger" title="Remove a Ticket" @click="deleteTicket()">Remove a
@@ -43,12 +43,25 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-12">
-                    <div>
-                        <button class="btn btn-warning">Add Comment</button>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-
+                    <div class="row mt-5">
+                        <div class="mb-3">
+                            <h4>Comments:</h4>
+                            <div class="text-end">
+                                <button class="btn btn-warning">Add Comment</button>
+                            </div>
+                        </div>
+                        <div v-for="c in comments" class="col-12">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img :src="c.creator.picture" :alt="c.creator.picture" class="rounded-circle">
+                                </div>
+                                <div class="col-10">
+                                    <div>
+                                        <p>{{ c.creator.name }} at {{ c.updatedAt }}</p>
+                                        <p>{{ c.body }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,6 +85,10 @@ export default {
     props: {
         event: {
             type: Event,
+            required: true
+        },
+        comment: {
+            type: Comment,
             required: true
         }
     },
@@ -112,9 +129,12 @@ export default {
             getEventComments();
         });
         return {
+
             account: computed(() => AppState.account),
             tickets: computed(() => AppState.tickets),
             myTickets: computed(() => AppState.myTickets),
+            comments: computed(() => AppState.comments),
+
             async getTicket() {
                 try {
                     const eventId = route.params.eventId;
