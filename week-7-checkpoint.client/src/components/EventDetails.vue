@@ -116,15 +116,6 @@ export default {
             }
         }
 
-        async function getMyTickets() {
-            try {
-                if (AppState.account.id) {
-                    await ticketsService.getMyTickets();
-                }
-            } catch (error) {
-                Pop.error('[GETTING MY TICKETS]', error);
-            }
-        }
 
         async function getEventComments() {
             try {
@@ -137,9 +128,9 @@ export default {
 
         onMounted(() => {
             getAllTicketsToThisEvent();
-            getMyTickets();
             getEventComments();
         });
+
         return {
 
             account: computed(() => AppState.account),
@@ -172,7 +163,6 @@ export default {
 
             async deleteTicket() {
                 try {
-                    await getMyTickets()
                     const eventId = route.params.eventId
                     const myTicket = this.myTickets.find(t => t.accountId == this.account.id && t.eventId == eventId)
                     if (!myTicket) {
@@ -180,7 +170,7 @@ export default {
                         return
                     }
                     const ticketId = myTicket.id
-                    await ticketsService.deleteTicket(ticketId)
+                    await ticketsService.deleteTicket(ticketId, eventId)
                 } catch (error) {
                     Pop.error('[DELETING TICKET]', error)
                 }

@@ -31,23 +31,26 @@ class TicketsService {
         logger.log('[ALL TICKETS]', AppState.tickets)
     }
 
-    async deleteTicket(ticketId) {
+    async deleteTicket(ticketId, eventId) {
         const res = await api.delete('api/tickets/' + ticketId)
         logger.log('[res.data]', res.data)
-        let deletedTicketIndex = AppState.tickets.findIndex(t => t.id == ticketId)
+        let deletedTicketIndex = AppState.tickets.findIndex(t => t.eventId == eventId)
         if (deletedTicketIndex == -1) {
+            Pop.toast('Ticket not found.', 'error', 'center', 3000, true)
             return
         }
         AppState.tickets.splice(deletedTicketIndex, 1)
         logger.log('[DELETED FROM ALL TICKETS]', deletedTicketIndex, '[ALL TICKETS]', AppState.tickets)
         let myTicketIndex = AppState.myTickets.findIndex(t => t.id == ticketId)
         if (myTicketIndex == -1) {
+            Pop.toast('Ticket not found.', 'error', 'center', 3000, true)
             return
         }
         AppState.myTickets.splice(myTicketIndex, 1)
         logger.log('[DELETED FROM MY TICKETS]', myTicketIndex, '[MY TICKETS]', AppState.myTickets)
-        Pop.toast('Ticket deleted.', 'success', 'center', 3000, true)
 
+        Pop.toast('Ticket deleted.', 'success', 'center', 3000, true)
+        await this.getAllTicketsToThisEvent(eventId)
         return
     }
 }
