@@ -3,6 +3,7 @@ import { AppState } from "../AppState.js";
 import { logger } from "../utils/Logger.js";
 import { api } from "../services/AxiosService.js";
 import Pop from "../utils/Pop.js";
+import { eventsService } from "../services/EventsService.js";
 
 class TicketsService {
 
@@ -17,6 +18,8 @@ class TicketsService {
             Pop.toast("Ticket Received", "success", "center", 3000, true);
             logger.log('[MY TICKETS]', AppState.myTickets)
         }
+
+        await eventsService.getEventById(eventId)
     }
 
     async getMyTickets() {
@@ -50,6 +53,7 @@ class TicketsService {
         logger.log('[DELETED FROM MY TICKETS]', myTicketIndex, '[MY TICKETS]', AppState.myTickets)
 
         Pop.toast('Ticket deleted.', 'success', 'center', 3000, true)
+        await eventsService.getEventById(eventId)
         await this.getAllTicketsToThisEvent(eventId)
         return
     }
