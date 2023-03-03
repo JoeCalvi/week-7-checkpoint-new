@@ -13,12 +13,15 @@ class CommentsService {
 
     async createComment(commentData) {
         const res = await api.post('api/comments', commentData)
-        logger.log(res.data)
+        AppState.comments = new Comment(res.data)
+        logger.log(AppState.comments)
     }
 
     async deleteComment(commentId) {
         const res = await api.delete('api/comments/' + commentId)
-        logger.log(res.data)
+        let oldCommentIndex = AppState.comments.findIndex(c => c.id == commentId)
+        AppState.comments.splice(oldCommentIndex, 1)
+        logger.log('OLD COMMENT', oldCommentIndex, 'ALL COMMENTS', AppState.comments)
     }
 }
 
