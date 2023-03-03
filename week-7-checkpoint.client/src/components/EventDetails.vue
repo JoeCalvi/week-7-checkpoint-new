@@ -26,9 +26,9 @@
                     <div class="border border-warning rounded p-3 d-flex justify-content-center">
                         <ul>
                             <li v-if="event.capacity == 0" class="sold-out">Sold Out!</li>
-                            <li>{{ event.startDate }}</li>
+                            <li>When: {{ event.startDate }}</li>
                             <li>Capacity: {{ event.capacity }}</li>
-                            <li>{{ event.location }}</li>
+                            <li>Where: {{ event.location }}</li>
                             <li>Event Type: {{ event.type }}</li>
                         </ul>
                     </div>
