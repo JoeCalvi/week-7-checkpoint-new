@@ -28,6 +28,7 @@ class EventsService {
         let cancelledEvent = new Event(res.data)
         let eventIndex = AppState.events.findIndex(e => e.id == eventId)
         AppState.events.splice(eventIndex, 1, cancelledEvent)
+        await this.getEventById(eventId)
     }
 }
 
