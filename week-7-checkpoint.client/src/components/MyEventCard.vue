@@ -1,6 +1,6 @@
 <template>
     <div class="MyEventCard">
-        <router-link :to="{ name: 'Event', params: { eventId: myEvent.event.id } }" class="text-dark">
+        <router-link :to="{ name: 'Event', params: { eventId: myEvent.event.id } }" class="text-dark" title="See event.">
             <div class="card my-events mb-3">
                 <div class="card-body">
                     <p><b>{{ myEvent.event.name }}</b></p>

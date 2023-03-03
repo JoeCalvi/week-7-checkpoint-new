@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid bg-dark text-light">
     <div class="row my-3">
-      <div class="col-md-12 mb-2">
+      <div v-if="account.id" class="col-md-12 mb-2">
         <h1 class="text-center">My Upcoming Events:</h1>
       </div>
       <div v-for="tickets in myTickets" class="col-md-2 d-flex justify-content-center border-end border-warning">

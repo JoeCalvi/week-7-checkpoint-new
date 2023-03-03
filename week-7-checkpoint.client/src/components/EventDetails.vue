@@ -70,11 +70,11 @@
                 <div v-for="c in comments" class="col-md-12">
                     <div class="row mb-5 align-items-center justify-content-between">
                         <div class="col-md-2 d-flex justify-content-center">
-                            <img :src="c.creator.picture" :alt="c.creator.picture" class="rounded-circle">
+                            <img :src="c.creator?.picture" :alt="c.creator?.picture" class="rounded-circle">
                         </div>
                         <div class="col-md-8 pb-3 mt-2 border-bottom border-warning">
                             <div>
-                                <p>{{ c.creator.name }} at {{ c.updatedAt }}</p>
+                                <p>{{ c.creator?.name }} at {{ c.updatedAt }}</p>
                                 <p>{{ c.body }}</p>
                             </div>
                         </div>

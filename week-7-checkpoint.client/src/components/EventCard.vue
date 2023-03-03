@@ -1,7 +1,7 @@
 <template>
     <div class="EventCard">
 
-        <router-link :to="{ name: 'Event', params: { eventId: event.id } }" class="text-dark">
+        <router-link :to="{ name: 'Event', params: { eventId: event.id } }" class="text-dark" title="See Event">
             <div v-if="!event.isCanceled" class="card event-card p-3 selectable">
                 <div class="row">
                     <div class="col-md-12 text-dark">
