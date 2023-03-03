@@ -4,14 +4,16 @@
         <router-link :to="{ name: 'Event', params: { eventId: event.id } }" class="text-dark">
             <div v-if="!event.isCanceled" class="card event-card p-3 selectable">
                 <div class="row">
-                    <div class="col-12 text-center">
-                        <h4 class="p-2">{{ event.name }}</h4>
+                    <div class="col-md-12 text-dark">
+                        <div class="text-center">
+                            <h4 class="p-2">{{ event.name }}</h4>
+                        </div>
                         <div class="row align-items-center">
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <img :src="event.coverImg" :alt="event.coverImg" class="img-fluid rounded">
                             </div>
                             <div class="col-md-6">
-                                <div class="card-body border border-dark rounded">
+                                <div class="card-body d-none d-lg-block">
                                     <ul>
                                         <li>{{ event.startDate }}</li>
                                         <li>Capacity: {{ event.capacity }}</li>
@@ -28,14 +30,16 @@
 
         <div v-if="event.isCanceled" class="card event-card p-3 cancelled">
             <div class="row">
-                <div class="col-12 text-center">
-                    <h4 class="p-2">{{ event.name }}</h4>
+                <div class="col-md-12 text-dark">
+                    <div class="text-center">
+                        <h4 class="p-2">{{ event.name }}</h4>
+                    </div>
                     <div class="row align-items-center">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <img :src="event.coverImg" :alt="event.coverImg" class="img-fluid rounded">
                         </div>
-                        <div class="col-md-6">
-                            <div class="card-body border border-dark rounded">
+                        <div class="col-md-6 ">
+                            <div class="card-body d-none d-lg-block">
                                 <ul>
                                     <li>{{ event.startDate }}</li>
                                     <li>Capacity: {{ event.capacity }}</li>
@@ -76,12 +80,12 @@ export default {
 
 <style lang="scss" scoped>
 .event-card {
-    height: 45vh;
+    height: 20em;
 }
 
 .cancelled {
     text-decoration: line-through;
-    opacity: .5;
-    background-color: rgb(100, 66, 66);
+    text-decoration-color: #FF5977;
+    opacity: .8;
 }
 </style>

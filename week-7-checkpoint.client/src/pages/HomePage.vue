@@ -1,29 +1,44 @@
 <template>
-  <div class="container-fluid">
-    <div class="row my-3 justify-content-evenly">
-      <div class="mb-2">
+  <div class="container-fluid bg-dark text-light">
+    <div class="row my-3">
+      <div class="col-md-12 mb-2">
         <h1 class="text-center">My Upcoming Events:</h1>
       </div>
-      <div v-for="tickets in myTickets" class="col-md-2">
+      <div v-for="tickets in myTickets" class="col-md-2 d-flex justify-content-center border-end border-warning">
         <MyEventCard :myEvent="tickets" />
       </div>
     </div>
     <div class="row justify-content-center my-3">
       <div class="col-md-10">
         <div class="row my-3">
-          <div class="col-12 d-flex justify-content-evenly bg-dark rounded p-3">
-            <button class="btn btn-warning" @click="changeFilterType('')">All</button>
-            <button class="btn btn-warning" @click="changeFilterType('concert')">Concert</button>
-            <button class="btn btn-warning" @click="changeFilterType('convention')">Convention</button>
-            <button class="btn btn-warning" @click="changeFilterType('sport')">Sport</button>
-            <button class="btn btn-warning" @click="changeFilterType('digital')">Digital</button>
+          <div class="col-12 p-3">
+            <div class="row justify-content-evenly align-items-center">
+              <div class="col-md-2 d-flex justify-content-center">
+                <h5>Sort By:</h5>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center mb-2">
+                <button class="btn btn-warning" @click="changeFilterType('')">All</button>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center mb-2">
+                <button class="btn btn-warning" @click="changeFilterType('concert')">Concert</button>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center mb-2">
+                <button class="btn btn-warning" @click="changeFilterType('convention')">Convention</button>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center mb-2">
+                <button class="btn btn-warning" @click="changeFilterType('sport')">Sport</button>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center mb-2">
+                <button class="btn btn-warning" @click="changeFilterType('digital')">Digital</button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="mb-2">
             <h1 class="text-center">All Events:</h1>
           </div>
-          <div v-for="e in events" class="col-6 mb-3">
+          <div v-for="e in events" class="col-md-6 mb-3">
             <EventCard :event="e" />
           </div>
         </div>

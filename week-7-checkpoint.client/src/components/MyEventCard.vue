@@ -1,10 +1,10 @@
 <template>
     <div class="MyEventCard">
         <router-link :to="{ name: 'Event', params: { eventId: myEvent.event.id } }" class="text-dark">
-            <div class="card my-events mb-2">
+            <div class="card my-events mb-3">
                 <div class="card-body">
                     <p><b>{{ myEvent.event.name }}</b></p>
-                    <img :src="myEvent.event.coverImg" class="img-fluid" alt="">
+                    <img :src="myEvent.event.coverImg" class="img-fluid rounded" alt="">
                 </div>
             </div>
         </router-link>

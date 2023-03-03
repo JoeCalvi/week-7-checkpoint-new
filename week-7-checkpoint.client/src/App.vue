@@ -1,12 +1,14 @@
 <template>
-  <header>
-    <Navbar />
-  </header>
-  <main>
-    <router-view />
-  </main>
-  <footer class="bg-dark text-light">
-  </footer>
+  <body class="bg-dark text-light">
+    <header>
+      <Navbar />
+    </header>
+    <main>
+      <router-view />
+    </main>
+    <footer class="bg-dark text-light">
+    </footer>
+  </body>
 </template>
 
 <script>
