@@ -11,9 +11,13 @@ class CommentsService {
         logger.log('[EVENT COMMENTS]', AppState.comments)
     }
 
-    async createComment(commentData, eventId) {
-        
-        const res = await api.post('api/comments', commentData, { eventId })
+    async createComment(commentData) {
+        const res = await api.post('api/comments', commentData)
+        logger.log(res.data)
+    }
+
+    async deleteComment(commentId) {
+        const res = await api.delete('api/comments/' + commentId)
         logger.log(res.data)
     }
 }

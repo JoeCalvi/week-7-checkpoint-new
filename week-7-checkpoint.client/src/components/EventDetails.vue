@@ -9,6 +9,7 @@
                         <div class="col-md-8 mb-3">
                             <div class="border border-dark rounded p-3 d-flex justify-content-center">
                                 <ul>
+                                    <li v-if="event.capacity == 0" class="sold-out">Sold Out!</li>
                                     <li>{{ event.startDate }}</li>
                                     <li>Capacity: {{ event.capacity }}</li>
                                     <li>{{ event.location }}</li>
@@ -28,14 +29,15 @@
                             <p>{{ event.description }}</p>
                         </div>
                         <div class="col-md-12 d-flex justify-content-end my-2">
-                            <div class="d-flex gap-3">
-                                <button v-if="event.creatorId != account.id && event.capacity > 0" class="btn btn-primary"
+                            <div class="d-flex gap-3 align-items-center">
+                                <button v-if="!event.isCanceled && event.capacity > 0" class="btn btn-primary"
                                     @click="getTicket()">Get
                                     Ticket</button>
-                                <button class="btn btn-danger" title="Remove a Ticket" @click="deleteTicket()">Remove a
+                                <button :disabled="event.isCanceled" class="btn btn-danger" title="Remove My Ticket"
+                                    @click="deleteTicket()">Remove My
                                     Ticket</button>
-                                <button v-if="event.creatorId == account.id" class="btn btn-danger" title="Cancel Event"
-                                    @click="cancelEvent()">Cancel Event</button>
+                                <button :disabled="event.isCanceled" v-if="event.creatorId == account.id"
+                                    class="btn btn-danger" title="Cancel Event" @click="cancelEvent()">Cancel Event</button>
                             </div>
                         </div>
                     </div>
@@ -47,19 +49,26 @@
                         <div class="mb-3">
                             <h4>Comments:</h4>
                             <div class="text-end">
-                                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#comment-modal">Add
+                                <button :disabled="event.isCanceled" class="btn btn-warning" data-bs-toggle="modal"
+                                    data-bs-target="#comment-modal">Add
                                     Comment</button>
                             </div>
                         </div>
                         <div v-for="c in comments" class="col-12">
-                            <div class="row">
-                                <div class="col-2">
+                            <div class="row mb-3">
+                                <div class="col-md-2">
                                     <img :src="c.creator.picture" :alt="c.creator.picture" class="rounded-circle">
                                 </div>
-                                <div class="col-10">
+                                <div class="col-md-10">
                                     <div>
                                         <p>{{ c.creator.name }} at {{ c.updatedAt }}</p>
                                         <p>{{ c.body }}</p>
+                                    </div>
+                                    <div class="text-end">
+                                        <button v-if="c.creatorId == account.id" class="btn btn-danger"
+                                            title="Delete Comment" @click="deleteComment(`${c.id}`)">
+                                            <i class="mdi mdi-trash-can"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +83,7 @@
 
 
 <script>
-import { computed, onMounted, watchEffect } from "vue";
+import { computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState.js";
 import { Event } from "../models/Event.js";
@@ -128,6 +137,7 @@ export default {
 
         onMounted(() => {
             getAllTicketsToThisEvent();
+            getMyTickets();
             getEventComments();
         });
         return {
@@ -136,6 +146,7 @@ export default {
             tickets: computed(() => AppState.tickets),
             myTickets: computed(() => AppState.myTickets),
             comments: computed(() => AppState.comments),
+            event: computed(() => AppState.event),
 
             async getTicket() {
                 try {
@@ -162,7 +173,8 @@ export default {
             async deleteTicket() {
                 try {
                     await getMyTickets()
-                    const myTicket = this.myTickets.find(t => t.accountId == this.account.id)
+                    const eventId = route.params.eventId
+                    const myTicket = this.myTickets.find(t => t.accountId == this.account.id && t.eventId == eventId)
                     if (!myTicket) {
                         Pop.toast('You do not have a ticket to delete.', 'error', 'center', 3000, true)
                         return
@@ -174,11 +186,11 @@ export default {
                 }
             },
 
-            async createComment() {
+            async deleteComment(commentId) {
                 try {
-                    await commentsService.createComment()
+                    await commentsService.deleteComment(commentId)
                 } catch (error) {
-                    Pop.error('[CREATING COMMENT]', error)
+                    Pop.error('[DELETING COMMENT]', error)
                 }
             }
         };
@@ -188,4 +200,10 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.sold-out {
+    font-weight: bold;
+    font-style: italic;
+    color: red;
+}
+</style>
